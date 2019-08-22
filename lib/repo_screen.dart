@@ -17,29 +17,12 @@ class RepoScreenState extends State<RepoScreen> {
   RepoModel repo = RepoModel(1, 'Test', 'User/Github', 'Very long description overalll over=fnadsnfjnsgdnf/', UserModel('User', 1, 'user/User'), 10);
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  final TextTheme _textTheme = TextTheme(
-          title: TextStyle(color: Colors.white),
-          // body1: TextStyle(color: Colors.white),
-          // body2: TextStyle(color: Colors.white),
-          // button: TextStyle(color: Colors.white),
-          // subtitle: TextStyle(color: Colors.white),
-          // subhead: TextStyle(color: Colors.white),
-          // overline: TextStyle(color: Colors.white),
-          // caption: TextStyle(color: Colors.white),
-          // display1: TextStyle(color: Colors.white),
-          // display2: TextStyle(color: Colors.white),
-          // display3: TextStyle(color: Colors.white),
-          // display4: TextStyle(color: Colors.white),
-          // headline: TextStyle(color: Colors.white),
-        );
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        title: Theme(data: ThemeData(textTheme: _textTheme), child: _buildTitle()),
-        textTheme: _textTheme,
+        title: _buildTitle(),
         backgroundColor: Colors.black,
         leading: IconButton(
           icon: Icon(Octicons.three_bars, color: Colors.white,),
@@ -58,9 +41,12 @@ class RepoScreenState extends State<RepoScreen> {
           preferredSize: Size.fromHeight(40),
           child: Container(
             height: 40,
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              children: _buildSubmenu(),
+            child: Scrollbar(
+              
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: _buildSubmenu(),
+              ),
             ),
           ),
         ),
@@ -77,7 +63,7 @@ class RepoScreenState extends State<RepoScreen> {
           padding: EdgeInsets.only(left: 10, right: 10),
           child: GestureDetector(
             child: Text('text_$i', 
-              style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              style: Theme.of(context).appBarTheme.textTheme.subtitle,
             ),
             onTap: () => print('text_$i'),
           )
@@ -112,7 +98,7 @@ class RepoScreenState extends State<RepoScreen> {
             Flexible(
               flex: 20,
               child: Text(repo.fullName.split('/')[0], 
-                style: TextStyle(fontWeight: FontWeight.bold),
+                style: Theme.of(context).appBarTheme.textTheme.title.copyWith(fontWeight: FontWeight.bold),
               ),
             ),
             Spacer(flex: 1,),
@@ -126,7 +112,7 @@ class RepoScreenState extends State<RepoScreen> {
             Flexible(
               flex: 20,
               child: Text(repo.fullName.split('/')[1], 
-                style: TextStyle(fontWeight: FontWeight.bold),
+                style: Theme.of(context).appBarTheme.textTheme.title.copyWith(fontWeight: FontWeight.bold),
               ),
             ),
           ],
