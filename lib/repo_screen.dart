@@ -40,9 +40,8 @@ class RepoScreenState extends State<RepoScreen> {
         bottom: PreferredSize(
           preferredSize: Size.fromHeight(40),
           child: Container(
-            height: 40,
+            height: 36,
             child: Scrollbar(
-              
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: _buildSubmenu(),
@@ -50,6 +49,7 @@ class RepoScreenState extends State<RepoScreen> {
             ),
           ),
         ),
+        brightness: Brightness.dark,
       ),
       drawer: Drawer(),
       body: _buildBody(),
