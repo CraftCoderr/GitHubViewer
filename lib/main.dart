@@ -9,12 +9,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.grey,
+        // primarySwatch: Colors.grey,
         appBarTheme: AppBarTheme(
-          color: Colors.black, 
+          color: Color.fromARGB(255, 36, 41, 46), 
           textTheme: TextTheme(
-            title: TextStyle(color: Colors.white),
-            subtitle: TextStyle(color: Colors.grey),
+            title: TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 15),
+            subtitle: TextStyle(color: Color.fromARGB(255, 197, 198, 199)),
           ),
         ),
       ),
