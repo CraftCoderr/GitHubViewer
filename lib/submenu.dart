@@ -6,6 +6,7 @@ class SubmenuPageController {
   int _currentIndex;
 
   SubmenuPageViewState _pageView;
+  SubmenuBarState _submenuBar;
 
   SubmenuPageController(this._size, int initialIndex) {
     _currentIndex = initialIndex;
@@ -16,11 +17,17 @@ class SubmenuPageController {
     assert(index < _size);
     _currentIndex = index;
     _pageView._setCurrentIndex(_currentIndex);
+    _submenuBar._setCurrentIndex(_currentIndex);
   }
 
   void setPageView(SubmenuPageViewState pageView) {
     _pageView = pageView;
     _pageView._setCurrentIndex(_currentIndex);
+  }
+
+  void setSubmenuBar(SubmenuBarState submenuBar) {
+    _submenuBar = submenuBar;
+    _submenuBar._setCurrentIndex(_currentIndex);
   }
 
 }
@@ -146,11 +153,15 @@ class SubmenuBar extends StatefulWidget {
 }
 
 class SubmenuBarState extends State<SubmenuBar> {
-  int _currentIndex = 0;
+  int _currentIndex;
+
+  @override
+  void initState() {
+    widget.controller.setSubmenuBar(this);
+  }
 
   void _setCurrentIndex(int index) {
     _currentIndex = index;
-    widget.controller.setCurrentIndex(index);
     setState(() {
       
     });
@@ -161,7 +172,7 @@ class SubmenuBarState extends State<SubmenuBar> {
       margin: EdgeInsets.only(left: 10, right: 10, bottom: 18),
       child: GestureDetector(
         child: submenu,
-        onTap: () => _setCurrentIndex(index),
+        onTap: () => widget.controller.setCurrentIndex(index),
       )
     );
   }

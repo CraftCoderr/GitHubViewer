@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:github_viewer/repo_screen.dart';
+import 'repo/repo_screen.dart';
 
 void main() => runApp(MyApp());
 

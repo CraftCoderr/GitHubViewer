@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:github_viewer/repo/code_page.dart';
 
-import 'repo/repo_model.dart';
-import 'submenu.dart';
-import 'user/user_model.dart';
+import 'repo_model.dart';
+import '../submenu.dart';
+import '../user/user_model.dart';
 
 class RepoScreen extends StatefulWidget {
 
@@ -61,8 +62,8 @@ class RepoScreenState extends State<RepoScreen> {
   }
 
   List<Widget> _buildPages(int size) {
-    List<Widget> pages = <Widget>[];
-    for (int i = 0; i < size; i++) {
+    List<Widget> pages = <Widget>[CodePage()];
+    for (int i = 1; i < size; i++) {
       pages.add(Center(child: Text('page_$i')));
     }
     return pages;
