@@ -1,8 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 
 import 'repo/repo_model.dart';
+import 'submenu.dart';
 import 'user/user_model.dart';
 
 class RepoScreen extends StatefulWidget {
@@ -16,6 +16,7 @@ class RepoScreenState extends State<RepoScreen> {
 
   RepoModel repo = RepoModel(1, 'Test', 'Bill-Gray/PDCurses', 'Very long description overalll over=fnadsnfjnsgdnf/', UserModel('User', 1, 'user/User'), 10);
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  final SubmenuPageController controller = SubmenuPageController(7, 0);
 
   @override
   Widget build(BuildContext context) {
@@ -41,79 +42,30 @@ class RepoScreenState extends State<RepoScreen> {
           preferredSize: Size.fromHeight(36),
           child: Container(
             height: 36,
-            child: Scrollbar(
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: _buildSubmenu(),
-              ),
-            ),
+            child: SubmenuBar(controller: controller, submenus: [
+              StatelessSubmenu('Code'),
+              StatefulSubmenu('Issues', 23),
+              StatefulSubmenu('Pull requests', 4),
+              StatefulSubmenu('Projects', 0),
+              StatelessSubmenu('Wiki'),
+              StatelessSubmenu('Security'),
+              StatelessSubmenu('Pulse'),
+            ],)
           ),
         ),
         brightness: Brightness.dark,
       ),
       drawer: Drawer(),
-      body: _buildBody(),
+      body: SubmenuPageView(controller: controller, children: _buildPages(7),),
     );
   }
 
-  List<String> submenus = <String>[
-    'Code', 'Issues', 'Pull requests', 'Projects', 'Wiki', 'Security', 'Pulse'
-  ];
-
-  Widget _submenuPadding(Widget submenu) {
-    return Container(
-      margin: EdgeInsets.only(left: 10, right: 10, bottom: 18),
-      child: GestureDetector(
-        child: submenu,
-        onTap: () => print('Click ${submenu.hashCode}'),
-      )
-    );
-  }
-
-  Widget _buildStatefulSubmenu(String title, int state) {
-    return _submenuPadding(Row(children: <Widget>[
-      Text(title, style: Theme.of(context).appBarTheme.textTheme.subtitle,),
-      Container(
-        margin: EdgeInsets.only(left: 4), 
-        padding: EdgeInsets.only(left: 5, right: 5), 
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          color: Color.fromARGB(255, 69, 73, 77),
-        ), 
-        child: Text('$state', style: Theme.of(context).appBarTheme.textTheme.subtitle.copyWith(fontWeight: FontWeight.bold),),
-      )
-    ],));
-  }
-
-  Widget _buildStatelessSubmenu(String title) {
-    return _submenuPadding(Text(title, 
-      style: Theme.of(context).appBarTheme.textTheme.subtitle,
-    ),);
-  }
-
-  List<Widget> _buildSubmenu() {
-    var submenu = <Widget>[
-      _buildStatelessSubmenu('Code'),
-      _buildStatefulSubmenu('Issues', 23),
-      _buildStatefulSubmenu('Pull requests', 4),
-      _buildStatefulSubmenu('Projects', 0),
-      _buildStatelessSubmenu('Wiki'),
-      _buildStatelessSubmenu('Security'),
-      _buildStatelessSubmenu('Pulse')
-    ];
-    return submenu;
-  }
-
-  Widget _buildBody() {
-    if (repo != null) {
-      return Center(
-        child: Text(repo.description),
-      );
-    } else {
-      return Center(
-        child: CircularProgressIndicator(),
-      );
+  List<Widget> _buildPages(int size) {
+    List<Widget> pages = <Widget>[];
+    for (int i = 0; i < size; i++) {
+      pages.add(Center(child: Text('page_$i')));
     }
+    return pages;
   }
 
   Widget _buildTitle() {
