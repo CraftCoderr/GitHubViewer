@@ -39,9 +39,7 @@ class SubmenuPageView extends StatefulWidget {
   const SubmenuPageView({Key key, this.controller, this.children}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => SubmenuPageViewState();
-
-  
+  State<StatefulWidget> createState() => SubmenuPageViewState();  
 }
 
 class SubmenuPageViewState extends State<SubmenuPageView> {
